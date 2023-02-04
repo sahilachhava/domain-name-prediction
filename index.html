@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="shortcut icon"
+            href="https://www.pngall.com/wp-content/uploads/11/World-Wide-Web-No-Background.png"
+            type="image/x-icon"
+        />
+        <title>Domain Name Prediction</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Domain Name Prediction</h1>
+            <form
+                action="/importer"
+                method="post"
+                enctype="multipart/form-data"
+            >
+                <input hidden required type="file" name="csv" id="csv" />
+                <input
+                    placeholder="Select Data File"
+                    type="text"
+                    id="details"
+                    readonly
+                />
+                <input type="submit" value="Upload" />
+            </form>
+        </div>
+
+        <hr />
+        <div class="container-fluid">
+        <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="myTable" border="1">
+					<thead>
+						<tr>
+							<th>Sr No</th>
+							<th>Domain Name</th>
+							<th>Prediction</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>google.com</td>
+							<td>1</td>
+						</tr>
+                        <tr>
+							<td>2</td>
+							<td>facebook.com</td>
+							<td>0</td>
+						</tr>
+                        <tr>
+							<td>3</td>
+							<td>instagram.com</td>
+							<td>1</td>
+						</tr>
+                        <tr>
+							<td>4</td>
+							<td>twitter.com</td>
+							<td>0</td>
+						</tr>
+                        <tr>
+							<td>5</td>
+							<td>uel.com</td>
+							<td>1</td>
+						</tr>
+                        <tr>
+							<td>6</td>
+							<td>apple.com</td>
+							<td>1</td>
+						</tr>
+                        <tr>
+							<td>7</td>
+							<td>tesla.com</td>
+							<td>1</td>
+						</tr>
+                        <tr>
+							<td>8</td>
+							<td>hp.com</td>
+							<td>0</td>
+						</tr>
+                        <tr>
+							<td>9</td>
+							<td>food.com</td>
+							<td>0</td>
+						</tr>
+                        <tr>
+							<td>10</td>
+							<td>outlook.com</td>
+							<td>0</td>
+						</tr>
+                        <tr>
+							<td>11</td>
+							<td>activity.com</td>
+							<td>0</td>
+						</tr>
+                        <tr>
+							<td>12</td>
+							<td>gmail.com</td>
+							<td>1</td>
+						</tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-2" style="float: right;">
+            <div class="stati bg-emerald">
+                <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                <div>
+                    <b>90 %</b>
+                    <span>Accuracy</span>
+                </div> 
+            </div>
+        </div> 
+
+        <div class="col-md-2" style="float: right;">
+            <div class="stati bg-peter_river">
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <div>
+                    <b>75 %</b>
+                    <span>R2 Score</span>
+                </div> 
+            </div>
+        </div> 
+
+        <div class="col-md-2" style="float: right;">
+            <div class="stati bg-green_sea">
+                <i class="fa fa-database" aria-hidden="true"></i>
+                <div>
+                    <b>85</b>
+                    <span>Other stats</span>
+                </div> 
+            </div>
+        </div> 
+
+        <div class="col-md-2" style="float: right;">
+            <div class="stati bg-carrot">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+                <div>
+                    <b>2</b>
+                    <span>Other stats</span>
+                </div> 
+            </div>
+        </div> 
+
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <script>
+        const csvInput = document.querySelector('#csv');
+        const input = document.querySelector('#details');
+        input.addEventListener('click', () => {
+            csvInput.click();
+        });
+        csvInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const size = new Intl.NumberFormat('en-US', {
+                unit: 'megabyte',
+                style: 'unit',
+                notation: 'standard',
+                unitDisplay: 'short',
+            }).format(file.size / (1000 * 1000));
+            input.value = `${file.name} (${size})`;
+        });
+    </script>
+    <script>
+        let x = new RdataTB('myTable', {
+            //RenderJSON:[], // Convert Json to Table html 
+            ShowSearch:true, // show search field,
+            ShowSelect:true, // show show select,
+            ShowPaginate:true, // show paginate ,
+            SelectionNumber:[10,20,50,100], //Change Option in Select
+            //HideColumn:["ColumnName"], // Hide column
+            ShowHighlight:false, // show Highlight if search
+            fixedTable:true, // fixed table
+            sortAnimate:false, // show animated if sorted
+            ShowTfoot:false,
+            //ExcludeColumnExport:["ColumnName"] 
+        });
+    </script>
+</html>

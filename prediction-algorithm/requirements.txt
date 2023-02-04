@@ -1,0 +1,15 @@
+# Requirements by domain name prediction system
+# To Install: pip install -r /path/to/requirements.txt
+
+langid
+wordninja
+blosc
+# pickle
+category_encoders == 2.0.0
+transformers
+tensorflow-addons
+xlsxwriter
+gensim
+seaborn
+nltk
+Gutenberg

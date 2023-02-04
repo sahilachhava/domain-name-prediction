@@ -12,4 +12,3 @@ xlsxwriter
 gensim
 seaborn
 nltk
-Gutenberg

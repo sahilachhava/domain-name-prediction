@@ -29,10 +29,9 @@ warnings.filterwarnings(action='ignore')
 import collections
 from scipy.stats import entropy
 import nltk
-import nltk.corpus
 from nltk.corpus import words, stopwords
-# nltk.download('words')
-# nltk.download('stopwords')
+nltk.download('words')
+nltk.download('stopwords')
 # !pip install langid
 from langid.langid import LanguageIdentifier, model
 import gensim.downloader as api
@@ -182,29 +181,26 @@ result_path_confusion = OUTPUT_FOLDER + 'confusion.png'
 test_file = INPUT_PATH
 
 
-data = pd.read_csv(INPUT_PATH)
-
-
-
+data = pd.read_csv(INPUT_PATH, encoding= 'unicode_escape')
 
 
 # Load feature extraction libraries
 # Loading time in seconds
 import io  
 import matplotlib.pyplot as plt
+import nltk.corpus
+nltk.download('gutenberg')
+nltk.download('genesis')
+nltk.download('inaugural')
+nltk.download('nps_chat')
+nltk.download('webtext')
+nltk.download('treebank')
+nltk.download('brown')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
-# nltk.download('gutenberg')
-# nltk.download('genesis')
-# nltk.download('inaugural')
-# nltk.download('nps_chat')
-# nltk.download('webtext')
-# nltk.download('treebank')
-# nltk.download('brown')
-# nltk.download('averaged_perceptron_tagger')
-# nltk.download('wordnet')
-# nltk.download('omw-1.4')
-
-# from nltk.book import *
+from nltk.book import *
 from nltk.corpus import brown
 
 english_vocab = set(w.lower() for w in nltk.corpus.words.words())

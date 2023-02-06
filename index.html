@@ -36,7 +36,6 @@
 
         <hr />
         <div class="container-fluid">
-            <p id="result"></p>
             <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="myTable" border="1">
@@ -122,6 +121,7 @@
                     </div> 
                 </div>
             </div> 
+            <p id="result"></p>
 
             <div class="col-md-2" style="float: right;">
                 <div class="stati bg-peter_river">
@@ -180,14 +180,15 @@
                     url: 'http://45.85.249.156:8080/upload',
                     type: 'POST',
                     data: formData,
-                    contentType: false,
+                    crossDomain: true,
+                    contentType: 'Content-Type',
                     processData: false,
                     success: function(response){
                         $("#result").add(response)
                         console.log(response)
                     },
                     error: function (result, status) {
-                        console.log(result)
+                        console.log(result.statusText)
                     }
                 });
             });

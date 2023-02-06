@@ -18,8 +18,8 @@
         <div class="container">
             <h1>Domain Name Prediction</h1>
             <form
-                action="#"
-                method="post"
+                action=""
+                method="POST"
                 enctype="multipart/form-data"
             >
                 <input hidden required type="file" name="csv" id="csv" />
@@ -35,7 +35,7 @@
 
         <hr />
         <div class="container-fluid">
-
+            <p id="result"></p>
             <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="myTable" border="1">
@@ -166,20 +166,25 @@
         });
 
         $(document).ready(function() {
-            $("#csv").change(function() {
-                var fd = new FormData();
+            $("#csv").change(function(e) {
+                e.preventDefault();
+                var formData = new FormData();
                 var files = $('#csv')[0].files[0];
-                fd.append('csv', files);
+                formData.append('file', files);
 
                 $.ajax({
                     url: 'http://45.85.249.156:8080/upload',
-                    type: 'post',
-                    data: fd,
+                    type: 'POST',
+                    data: formData,
                     contentType: false,
                     processData: false,
                     success: function(response){
+                        $("#result").add(response)
                         console.log(response)
                     },
+                    error: function (result, status) {
+                        console.log(result)
+                    }
                 });
             });
         });

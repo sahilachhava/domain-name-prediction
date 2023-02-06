@@ -184,7 +184,8 @@
                     contentType: false,
                     processData: false,
                     success: function(response){
-                        console.log(JSON.stringify(response))
+                        const predData = response?.split("OUTPUT")[1]
+                        console.log(JSON.stringify(predData))
                     },
                     error: function (result, status) {
                         console.log(result.statusText)

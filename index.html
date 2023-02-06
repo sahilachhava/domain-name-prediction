@@ -179,6 +179,9 @@
                 $.ajax({
                     url: 'http://45.85.249.156:8080/upload',
                     type: 'POST',
+                    headers: {
+                        'Access-Control-Allow-Origin' : '*',
+                    },
                     data: formData,
                     crossDomain: true,
                     contentType: 'Content-Type',

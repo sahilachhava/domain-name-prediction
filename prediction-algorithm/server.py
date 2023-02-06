@@ -3,7 +3,8 @@ from flask_cors import CORS, cross_origin
 import os
 
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app, resources={r"/upload/*": {"origins": "*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/")
 @cross_origin()

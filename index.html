@@ -181,8 +181,9 @@
                     type: 'POST',
                     data: formData,
                     crossDomain: true,
+                    cache: false,
                     contentType: 'Content-Type',
-                    processData: false,
+                    processData: true,
                     success: function(response){
                         $("#result").add(response)
                         console.log(response)

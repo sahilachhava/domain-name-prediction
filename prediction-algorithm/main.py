@@ -17,6 +17,8 @@ Original file is located at
 # This step might takes few mins
 
 import os 
+import sys
+import json
 currentDirectoryPATH = os.path.dirname(os.path.realpath(__file__))
 
 import pandas as pd
@@ -100,7 +102,6 @@ try:
   wv = gensim.models.KeyedVectors.load_word2vec_format(currentDirectoryPATH+'/trained_models/GoogleNews-vectors-negative300.bin', binary=True)
 except:
   ERROR_PATH = True
-  print('Error reading input data')
 
 
 
@@ -125,11 +126,10 @@ IS_DEBUG = True # TO see some log etc
 
 INPUT_PATH = ''
 try:
-  INPUT_PATH = currentDirectoryPATH + '/uploads/uploaded_data_file.csv'
+  INPUT_PATH = currentDirectoryPATH + "/" + sys.argv[1]
 except:
   ERROR_READING = True
-  print('Error reading input data')
-
+  print(json.dumps({'error': 'Error reading input data'}))
 
 ##################################################
 # OUTPUT FOLDER PATH
@@ -142,8 +142,7 @@ try:
   OUTPUT_FOLDER = currentDirectoryPATH + '/results/'
 except:
   ERROR_PATH = True
-  print('Error reading input data')
-
+  print(json.dumps({'error': 'Error reading input data'}))
 
 
 ##################################################
@@ -221,7 +220,7 @@ data['DExt'] = pd.Series(len(data))  # Initiaze in case we have errors
 try:
   data['DExt'] = data['Domain'].apply(lambda x: x.split('.')[1])
 except:
-  print('data[DExt] issue')
+  print(json.dumps({'error': 'data[DExt] issue'}))
 
 # Counting the number of characters in the domain name
 data['DLength'] = data['DName'].apply(lambda x: len(x))
@@ -307,7 +306,6 @@ data['DWordCount'] = data['DWords'].apply(lambda x: len(x))
 data['DWordCount'].max()
 
 cnt = data[data['DWordCount'] > 5].shape[0]
-print('There are %d domain names in the dataset with 5 or more meaningful words' %cnt)
 #######################
 
 # define function to obtain the average vector for each group of words
@@ -331,13 +329,10 @@ data.sample(10)
 ####################
 
 clean_data = data
-print(clean_data.head())
 
 ################
 # Drop null values if any
-print('We have %s rows before dropping null values' % clean_data.shape[0])
 clean_data.dropna(subset = ['DName'], inplace = True)
-print('We have %s rows after dropping null values' % clean_data.shape[0])
 clean_data.isnull().sum()
 ################
 
@@ -421,16 +416,14 @@ model_loaded_lr = pickle.load(open(saved_models_LR, 'rb'))
 # Make model_Predictions
 
 model_predictions = model_loaded_lr.predict(final_X)
-print(model_predictions)
 
 dummy_output = filtered_X
 dummy_output ['model_Predictions'] = model_predictions
 final_outputs = dummy_output [['Domain', 'category', 'model_Predictions']]
-print(final_outputs.head())
 
 for row_index, (input, prediction, label) in enumerate(zip (final_X, model_predictions, y)):
   if prediction != label:
-    print('Row', row_index, 'has been classified as ', prediction, 'and should be ', label)
+    print(json.dumps({'error': 'Row' + row_index + 'has been classified as ' + prediction + 'and should be ' + label}))
 
 """## ERRORS (MSE, RMSE, AE) & ACCURACY (precision_score, recall_score, f1_score)
 
@@ -442,9 +435,7 @@ for row_index, (input, prediction, label) in enumerate(zip (final_X, model_predi
 # confusion matrix for NN- hash encoding
 from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score
 
-print(metrics.classification_report(y, model_predictions))
 matrix = confusion_matrix(y, model_predictions)
-print(matrix)
 
 def categorize_prediction_level(actual, predicted):
   df = pd.DataFrame()
@@ -475,13 +466,6 @@ total_errored_model_predictions_2 = len(errored_model_predictions_1)
 total_errored_model_predictions_3 = len(errored_model_predictions_1)
 total_errored_model_predictions_4 = len(errored_model_predictions_1)
 
-print('total errors = ', total_errored_model_predictions )
-print('total errors with margin 1 = ', total_errored_model_predictions_1 )
-print('total errors with margin 2= ', total_errored_model_predictions_2 )
-print('total errors with margin 3 = ', total_errored_model_predictions_3 )
-print('total errors with margin 4 = ', total_errored_model_predictions_4 )
-print(errored_model_predictions)
-
 
 # Save in figure
 all_lables = ['Error 1','Error 2','Error 3','Error 4','Error 5' ]
@@ -503,19 +487,17 @@ for row_index, (input, prediction, label) in enumerate(zip (filtered_X, model_pr
   if prediction != label:
     try:
       msg = 'Row', row_index, filtered_X['Domain'][row_index], ' has been classified as ', prediction, 'and should be ', label
-      print(msg)
       All_Wrong.append(msg)
     except:
-      print('index out of range')
+      pass
 
 # For all
 for row_index, (input, prediction, label) in enumerate(zip (X, model_predictions, y)):
   try:
     msg = 'Row', row_index, filtered_X['Domain'][row_index], ' has been classified as ', prediction, 'and should be ', label
-    print(msg)
     All.append(msg)
   except:
-    print('host not found')
+    pass
 
 df_all_erros = pd.DataFrame  (All_Wrong)  
 df_all_predictions = pd.DataFrame  (All)
@@ -524,13 +506,9 @@ from sklearn.metrics import mean_squared_error
 import math
  
 MSE = mean_squared_error(y, model_predictions)
- 
-print("Mean Square Error:\n")
-print(MSE)
+
 
 RMSE = math.sqrt(MSE)
-print("\nRoot Mean Square Error:\n")
-print(RMSE)
 
 acc = accuracy_score(y, model_predictions)
 ACCURACY = acc
@@ -589,8 +567,6 @@ report = classification_report(y_true=y, y_pred=model_predictions, output_dict=T
 df_report = pd.DataFrame(report).transpose()
 df_confusion = pd.DataFrame(conf_matrix).transpose()
 
-print(df_confusion)
-print(df_report)
 
 #######################################
 # Writing results 
@@ -640,6 +616,11 @@ worksheet_con.insert_image('C2',result_path_confusion)
 # df_report  ---its a dataframe
 # ACCURACY --- its a value (e.g. 60)
 
+
+######################################################################################################################################
+#save file
+writer.save()
+os.system("clear")
 ############################################
 # If there is any issue reading excel file, e.g. it is corrput etc; pls display this message and dont show any results
 
@@ -647,7 +628,7 @@ if (ERROR_READING == True):
   resultData = {
     "error": 'Failed! Cannot Read Data File; Pls check file'
   }
-  print('Failed! Cannot Read Data File; Pls check file')
+  print(json.dumps(resultData))
 else:
   resultData = {
     "allPredictions": df_all_predictions.to_json(),
@@ -656,8 +637,4 @@ else:
     "reports": df_report.to_json(),
     "error": None
   }
-  print(resultData)
-
-######################################################################################################################################
-#save file
-writer.save()
+  print(json.dumps(resultData))

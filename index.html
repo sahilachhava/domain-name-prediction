@@ -116,7 +116,7 @@
                 <div class="stati bg-emerald">
                     <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                     <div>
-                        <b>90 %</b>
+                        <b id="accuracyData">90 %</b>
                         <span>Accuracy</span>
                     </div> 
                 </div>
@@ -183,9 +183,11 @@
                     crossDomain: true,
                     contentType: false,
                     processData: false,
-                    success: function(response){
-                        const predData = response?.split("OUTPUT")[1]
-                        console.log(JSON.stringify(predData))
+                    success: async function(response){
+                        let predData = response?.split("OUTPUT")[1]
+                        predData = predData?.replace("\n", "")?.replace(/\\/g, "")
+                        predData = JSON.parse(predData)
+                        await showData(predData)
                     },
                     error: function (result, status) {
                         console.log(result.statusText)
@@ -193,6 +195,15 @@
                 });
             });
         });
+    </script>
+    <script>
+        async function showData(data){
+            if(data?.error != null){
+                alert("ERROR: ", data?.error)
+            }else{
+                document.getElementById("accuracyData").innerText = data?.accuracy
+            }
+        }
     </script>
     <script>
         let x = new RdataTB('myTable', {

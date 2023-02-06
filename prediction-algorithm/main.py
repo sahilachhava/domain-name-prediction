@@ -612,9 +612,6 @@ df_error.to_excel(writer, sheet_name='Errors')
 df_all_erros.to_excel(writer, sheet_name='Predictions_with_errors_details')
 error_level_df.to_excel(writer, sheet_name='Predictions')
 df_all_predictions.to_excel(writer, sheet_name='All Predictions')
-allPredJSON = df_report.to_json()
-print(allPredJSON)
-
 
 # Save Accuracy figures in excel file
 df_empty1.to_excel(writer, sheet_name='Accuracy_charts')
@@ -646,8 +643,20 @@ worksheet_con.insert_image('C2',result_path_confusion)
 ############################################
 # If there is any issue reading excel file, e.g. it is corrput etc; pls display this message and dont show any results
 
-if (ERROR_READING ==True):
-  print('Can not Read Test File; pls check file')
+if (ERROR_READING == True):
+  resultData = {
+    "error": 'Failed! Cannot Read Data File; Pls check file'
+  }
+  print('Failed! Cannot Read Data File; Pls check file')
+else:
+  resultData = {
+    "allPredictions": df_all_predictions.to_json(),
+    "confusionMatrix": df_confusion.to_json(),
+    "accuracy": str(ACCURACY),
+    "reports": df_report.to_json(),
+    "error": None
+  }
+  print(resultData)
 
 ######################################################################################################################################
 #save file

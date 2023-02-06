@@ -18,7 +18,7 @@
         <div class="container">
             <h1>Domain Name Prediction</h1>
             <form
-                action="/importer"
+                action="upload.php"
                 method="post"
                 enctype="multipart/form-data"
             >
@@ -158,19 +158,34 @@
     <script>
         const csvInput = document.querySelector('#csv');
         const input = document.querySelector('#details');
+
         input.addEventListener('click', () => {
             csvInput.click();
         });
-        csvInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            const size = new Intl.NumberFormat('en-US', {
-                unit: 'megabyte',
-                style: 'unit',
-                notation: 'standard',
-                unitDisplay: 'short',
-            }).format(file.size / (1000 * 1000));
-            input.value = `${file.name} (${size})`;
-        });
+
+        // $(document).ready(function() {
+        //     $("#csv").change(function() {
+        //         var fd = new FormData();
+        //         var files = $('#csv')[0].files[0];
+        //         fd.append('csv', files);
+
+        //         $.ajax({
+        //             url: 'upload.php',
+        //             type: 'post',
+        //             data: fd,
+        //             contentType: false,
+        //             processData: false,
+        //             success: function(response){
+        //                 if(response != 0){
+        //                     alert('file uploaded');
+        //                 }
+        //                 else{
+        //                     alert('file not uploaded');
+        //                 }
+        //             },
+        //         });
+        //     });
+        // });
     </script>
     <script>
         let x = new RdataTB('myTable', {

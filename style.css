@@ -208,3 +208,28 @@ form {
   .stati.pomegranate { color: rgb(192, 57, 43); } 
   .stati.silver { color: rgb(189, 195, 199); } 
   .stati.asbestos { color: rgb(127, 140, 141); } 
+
+
+  .loader {
+    margin: 100px auto;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #00b7fa;
+    border-left: 16px solid black;
+    border-right: 16px solid black;
+    border-bottom: 16px solid red;
+    width: 150px;
+    height: 150px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

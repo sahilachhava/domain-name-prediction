@@ -30,83 +30,26 @@
                     id="details"
                     readonly
                 />
-                <input type="submit" value="Upload" />
+                <input type="submit" id="submitBtn" value="Upload" />
             </form>
         </div>
 
         <hr />
-        <div class="container-fluid">
+
+        <div class="loader" id="loadingAnimation" style="display: none;"></div>
+
+        <div class="container-fluid" id="resultBody" style="display: none;">
             <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="myTable" border="1">
+                        <h3>Reports</h3>
                         <thead>
-                            <tr>
-                                <th>Sr No</th>
-                                <th>Domain Name</th>
-                                <th>Prediction</th>
+                            <tr id="mainTableHeader">
+                                
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>google.com</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>facebook.com</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>instagram.com</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>twitter.com</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>uel.com</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>apple.com</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>tesla.com</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td>hp.com</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>9</td>
-                                <td>food.com</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>outlook.com</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td>activity.com</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>gmail.com</td>
-                                <td>1</td>
-                            </tr>
+                        <tbody id="mainTableBody">
+                            
                         </tbody>
                     </table>
                 </div>
@@ -116,47 +59,59 @@
                 <div class="stati bg-emerald">
                     <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                     <div>
-                        <b id="accuracyData">90 %</b>
+                        <b id="accuracyData">0 %</b>
                         <span>Accuracy</span>
                     </div> 
                 </div>
             </div> 
             <p id="result"></p>
 
-            <div class="col-md-2" style="float: right;">
+            <div class="col-md-2" style="float: right;cursor: pointer;" onclick="downloadReports();">
                 <div class="stati bg-peter_river">
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                    <i class="fa fa-download" aria-hidden="true"></i>
                     <div>
-                        <b>75 %</b>
-                        <span>R2 Score</span>
+                        <b>Download</b>
+                        <span>Reports File (Excel)</span>
                     </div> 
                 </div>
             </div> 
 
-            <div class="col-md-2" style="float: right;">
-                <div class="stati bg-green_sea">
-                    <i class="fa fa-database" aria-hidden="true"></i>
-                    <div>
-                        <b>85</b>
-                        <span>Other stats</span>
-                    </div> 
+            <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="Table" border="1">
+                        <h3>All Predictions</h3>
+                        <thead>
+                            <tr id="predTableHeader">
+                                
+                            </tr>
+                        </thead>
+                        <tbody id="predTableBody">
+                            
+                        </tbody>
+                    </table>
                 </div>
-            </div> 
+            </div>
 
-            <div class="col-md-2" style="float: right;">
-                <div class="stati bg-carrot">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                    <div>
-                        <b>2</b>
-                        <span>Other stats</span>
-                    </div> 
+            <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="matrix" border="1">
+                        <h3>Confusion Matrix</h3>
+                        <thead>
+                            <tr id="matrixHeader">
+                                
+                            </tr>
+                        </thead>
+                        <tbody id="matrixBody">
+                            
+                        </tbody>
+                    </table>
                 </div>
-            </div> 
+            </div>
 
         </div>
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script src="script.js"></script>
     <script>
         const csvInput = document.querySelector('#csv');
@@ -166,12 +121,20 @@
             csvInput.click();
         });
 
-        $("#fileUploadForm").submit(function(e) {
-            e.preventDefault();
-        });
+        // $("#fileUploadForm").submit(function(e) {
+        //     e.preventDefault();
+        // });
 
         $(document).ready(function() {
-            $("#csv").change(function(e) {
+            $("#submitBtn").click(function(e) {
+                e.preventDefault();
+
+                $("#submitBtn").attr('disabled', '')
+                $("#submitBtn").css('background', '#ccc')
+                $("#loadingAnimation").css('display', 'block');
+
+                console.log("File Processing Request Sent!")
+
                 var formData = new FormData();
                 var files = $('#csv')[0].files[0];
                 formData.append('file', files);
@@ -184,28 +147,122 @@
                     contentType: false,
                     processData: false,
                     success: async function(response){
+                        $("#csv").val('');
                         let predData = response?.split("OUTPUT")[1]
                         predData = predData?.replace("\n", "")?.replace(/\\/g, "")
                         predData = JSON.parse(predData)
-                        await showData(predData)
+                        showData(predData)
                     },
                     error: function (result, status) {
                         console.log(result.statusText)
                     }
                 });
             });
+
+            $("#csv").change(function(e) {
+                $("#details").val("Data File Selected, Please click upload now...")
+                if($("#submitBtn").attr('disabled')){
+                    $("#submitBtn").removeAttr('disabled')
+                    $("#submitBtn").css('background', 'linear-gradient(90deg, rgb(73, 146, 255) 0%, rgb(43, 197, 231) 100%)')
+                }
+            });
         });
     </script>
     <script>
-        async function showData(data){
-            if(data?.error != null){
-                alert("ERROR: ", data?.error)
-            }else{
-                document.getElementById("accuracyData").innerText = data?.accuracy
-            }
+        function showData(data){
+            $(document).ready(function() {
+                if(data?.error != null){
+                    alert("ERROR: ", data?.error)
+                }else{
+                    //Accuracy Details
+                    $("#accuracyData").text((Math.round(parseFloat(parseFloat(data?.accuracy) * 100) * 100) / 100)?.toFixed(2)?.toString() + " %");
+
+                    // Reports Table
+                    let headers = Object.keys(data?.reports)
+                    $("#mainTableHeader").append('<th> - </th>')
+                    for (let index = 0; index < headers.length; index++) {
+                        const header = headers[index];
+                        $("#mainTableHeader").append('<th>' + header + '</th>')
+                    }
+
+                    const values = Object.values(data?.reports)
+                    const subHeaders = Object.keys(values[0])
+                    let bodyData = ''
+                    for (let index = 0; index < subHeaders.length; index++) {
+                        const subHeader = subHeaders[index];
+                        bodyData += '<tr>'
+                        bodyData += '<td>' + subHeader + '</td>'
+                        for (let subIndex = 0; subIndex < values.length; subIndex++) {
+                            const valueObj = values[subIndex];
+                            bodyData += '<td>' + valueObj[subHeader] + '</td>'
+                        }
+                    }
+                    $("#mainTableBody").append(bodyData);
+
+                    // Prediction Table
+                    let predHeaders = Object.keys(data?.allPredictions)
+                    $("#predTableHeader").append('<th> - </th>')
+                    for (let index = 0; index < predHeaders.length; index++) {
+                        const header = predHeaders[index];
+                        $("#predTableHeader").append('<th>' + header + '</th>')
+                    }
+
+                    const predValues = Object.values(data?.allPredictions)
+                    const predSubHeaders = Object.keys(predValues[0])
+                    let predBodyData = ''
+                    for (let index = 0; index < predSubHeaders.length; index++) {
+                        const subHeader = predSubHeaders[index];
+                        predBodyData += '<tr>'
+                        predBodyData += '<td>' + subHeader + '</td>'
+                        for (let subIndex = 0; subIndex < predValues.length; subIndex++) {
+                            const valueObj = predValues[subIndex];
+                            predBodyData += '<td>' + valueObj[subHeader] + '</td>'
+                        }
+                    }
+                    $("#predTableBody").append(predBodyData);
+
+                    // Confusion Matrix
+                    let matrixHeaders = Object.keys(data?.confusionMatrix)
+                    $("#matrixHeader").append('<th> - </th>')
+                    for (let index = 0; index < matrixHeaders.length; index++) {
+                        const header = matrixHeaders[index];
+                        $("#matrixHeader").append('<th>' + header + '</th>')
+                    }
+
+                    const matrixValues = Object.values(data?.confusionMatrix)
+                    const matrixSubHeaders = Object.keys(matrixValues[0])
+                    let matrixBodyData = ''
+                    for (let index = 0; index < matrixSubHeaders.length; index++) {
+                        const subHeader = matrixSubHeaders[index];
+                        matrixBodyData += '<tr>'
+                        matrixBodyData += '<td>' + subHeader + '</td>'
+                        for (let subIndex = 0; subIndex < matrixValues.length; subIndex++) {
+                            const valueObj = matrixValues[subIndex];
+                            matrixBodyData += '<td>' + valueObj[subHeader] + '</td>'
+                        }
+                    }
+                    $("#matrixBody").append(matrixBodyData);
+                }
+
+                $("#loadingAnimation").css('display', 'none');
+                $("#resultBody").css('display', 'block');
+            });
+        }
+
+        function downloadReports(){
+            var element = document.createElement('a');
+            element.setAttribute('href', 'prediction-algorithm/results/Results.xlsx');
+            element.setAttribute('download', "Domain Prediction Results.xlsx");
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
         }
     </script>
-    <script>
+    <!-- <script>
         let x = new RdataTB('myTable', {
             //RenderJSON:[], // Convert Json to Table html 
             ShowSearch:true, // show search field,
@@ -219,5 +276,5 @@
             ShowTfoot:false,
             //ExcludeColumnExport:["ColumnName"] 
         });
-    </script>
+    </script> -->
 </html>

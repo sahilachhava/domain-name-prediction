@@ -184,8 +184,7 @@
                     contentType: false,
                     processData: false,
                     success: function(response){
-                        $("#result").add(response)
-                        console.log(response)
+                        console.log(JSON.stringify(response))
                     },
                     error: function (result, status) {
                         console.log(result.statusText)

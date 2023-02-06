@@ -3,8 +3,7 @@ from flask_cors import CORS, cross_origin
 import os
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/upload": {"origins": "*"}})
-app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app)
 
 @app.route("/")
 @cross_origin()
@@ -14,7 +13,6 @@ def hello():
 @app.route("/upload", methods=['POST'])
 @cross_origin()
 def upload_file():
-    request.headers.add("Access-Control-Allow-Origin", "*")
     try:
         f = request.files['file']
         f.save(f.filename)

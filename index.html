@@ -21,6 +21,7 @@
                 action=""
                 method="POST"
                 enctype="multipart/form-data"
+                id="fileUploadForm"
             >
                 <input hidden required type="file" name="csv" id="csv" />
                 <input
@@ -165,9 +166,12 @@
             csvInput.click();
         });
 
+        $("#fileUploadForm").submit(function(e) {
+            e.preventDefault();
+        });
+
         $(document).ready(function() {
             $("#csv").change(function(e) {
-                e.preventDefault();
                 var formData = new FormData();
                 var files = $('#csv')[0].files[0];
                 formData.append('file', files);

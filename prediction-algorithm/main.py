@@ -624,7 +624,7 @@ os.system("clear")
 
 ############################################
 # If there is any issue reading excel file, e.g. it is corrput etc; pls display this message and dont show any results
-#print("OUTPUT")
+print("OUTPUT")
 if (ERROR_READING == True):
   resultData = {
     "error": 'Failed! Cannot Read Data File; Pls check file'

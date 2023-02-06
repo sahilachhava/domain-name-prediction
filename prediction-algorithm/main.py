@@ -621,9 +621,10 @@ worksheet_con.insert_image('C2',result_path_confusion)
 #save file
 writer.save()
 os.system("clear")
+
 ############################################
 # If there is any issue reading excel file, e.g. it is corrput etc; pls display this message and dont show any results
-print("OUTPUT")
+#print("OUTPUT")
 if (ERROR_READING == True):
   resultData = {
     "error": 'Failed! Cannot Read Data File; Pls check file'
@@ -631,10 +632,10 @@ if (ERROR_READING == True):
   print(json.dumps(resultData))
 else:
   resultData = {
-    "allPredictions": df_all_predictions.to_json(),
-    "confusionMatrix": df_confusion.to_json(),
+    "allPredictions": df_all_predictions.to_dict(),
+    "confusionMatrix": df_confusion.to_dict(),
     "accuracy": str(ACCURACY),
-    "reports": df_report.to_json(),
+    "reports": df_report.to_dict(),
     "error": None
   }
   print(json.dumps(resultData))

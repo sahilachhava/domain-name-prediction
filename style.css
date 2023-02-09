@@ -96,7 +96,7 @@ input[type='submit'] {
 }
 
 input[type='text'] {
-    width: 50%;
+    width: 20%;
     font-weight: 500;
     cursor: pointer;
     font-size: 0.9rem;
@@ -106,6 +106,19 @@ input[type='text'] {
     background: rgb(255, 255, 255);
     outline: none;
     border: 1px solid rgb(233, 237, 241);
+}
+
+textarea {
+  width: 50%;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+  color: rgb(26, 27, 28);
+  background: rgb(255, 255, 255);
+  outline: none;
+  border: 1px solid rgb(233, 237, 241);
 }
 
 form {

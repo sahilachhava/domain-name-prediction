@@ -23,6 +23,22 @@ def upload_file():
             'success': False,
             'error': str(e)
         }
+    
+
+@app.route("/uploadTextInput", methods=['POST'])
+@cross_origin()
+def upload_textInput():
+    try:
+        f = request.get_data()
+        # f.save(f.filename)
+        # data = os.popen('python3 main.py ' + f.filename).read()
+        # os.remove(f.filename)
+        return f
+    except Exception as e:
+        return {
+            'success': False,
+            'error': str(e)
+        }
 
 if __name__ == "__main__":
     app.run()

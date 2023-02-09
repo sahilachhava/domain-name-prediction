@@ -24,13 +24,24 @@
                 id="fileUploadForm"
             >
                 <input hidden required type="file" name="csv" accept=".csv" id="csv" />
+                <textarea
+                    placeholder="Please enter domain's here and then click submit:
+
+Ex: 
+google.com
+facebook.com
+
+Note: Enter each domain in new line without comma (,)"
+                    id="domains"
+                    rows="7"
+                ></textarea>
                 <input
                     placeholder="Select CSV Data File"
                     type="text"
                     id="details"
                     readonly
                 />
-                <input type="submit" id="submitBtn" value="Upload" />
+                <input type="submit" id="submitBtn" value="Submit" />
             </form>
         </div>
 
@@ -128,35 +139,69 @@
         $(document).ready(function() {
             $("#submitBtn").click(function(e) {
                 e.preventDefault();
-
-                $("#submitBtn").attr('disabled', '')
-                $("#submitBtn").css('background', '#ccc')
-                $("#loadingAnimation").css('display', 'block');
-
-                console.log("File Processing Request Sent!")
-
                 var formData = new FormData();
                 var files = $('#csv')[0].files[0];
-                formData.append('file', files);
+                var enteredDomains = $("#domains").val();
 
-                $.ajax({
-                    url: 'http://45.85.249.156:8080/upload',
-                    type: 'POST',
-                    data: formData,
-                    crossDomain: true,
-                    contentType: false,
-                    processData: false,
-                    success: async function(response){
-                        $("#csv").val('');
-                        let predData = response?.split("OUTPUT")[1]
-                        predData = predData?.replace("\n", "")?.replace(/\\/g, "")
-                        predData = JSON.parse(predData)
-                        showData(predData)
-                    },
-                    error: function (result, status) {
-                        console.log(result.statusText)
+                if(files || enteredDomains){
+                    if(files){
+                        $("#submitBtn").attr('disabled', '')
+                        $("#submitBtn").css('background', '#ccc')
+                        $("#loadingAnimation").css('display', 'block');
+
+                        console.log("File Processing Request Sent!")
+                        
+                        formData.append('file', files);
+
+                        $.ajax({
+                            url: 'http://45.85.249.156:8080/upload',
+                            type: 'POST',
+                            data: formData,
+                            crossDomain: true,
+                            contentType: false,
+                            processData: false,
+                            success: async function(response){
+                                $("#csv").val('');
+                                let predData = response?.split("OUTPUT")[1]
+                                predData = predData?.replace("\n", "")?.replace(/\\/g, "")
+                                predData = JSON.parse(predData)
+                                showData(predData)
+                            },
+                            error: function (result, status) {
+                                console.log(result.statusText)
+                            }
+                        });
+                    }else{
+                        $("#submitBtn").attr('disabled', '')
+                        $("#submitBtn").css('background', '#ccc')
+                        $("#loadingAnimation").css('display', 'block');
+
+                        console.log("File Processing Request Sent!")
+
+                        enteredDomains = enteredDomains?.split("\n")
+
+                        $.ajax({
+                            url: 'http://45.85.249.156:8080/uploadTextInput',
+                            type: 'POST',
+                            data: {"domains": enteredDomains},
+                            crossDomain: true,
+                            contentType: false,
+                            processData: false,
+                            success: async function(response){
+                                $("#csv").val('');
+                                let predData = response?.split("OUTPUT")[1]
+                                predData = predData?.replace("\n", "")?.replace(/\\/g, "")
+                                predData = JSON.parse(predData)
+                                showData(predData)
+                            },
+                            error: function (result, status) {
+                                console.log(result.statusText)
+                            }
+                        });
                     }
-                });
+                }else{
+                    alert("Please select CSV file or Enter domains to predict, and try again!")
+                }
             });
 
             $("#csv").change(function(e) {

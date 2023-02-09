@@ -324,7 +324,7 @@ def vectorize(x):
 
 data['DVector'] = data.apply(lambda x: vectorize(x), axis = 1)
 
-data.sample(10)
+#data.sample(10)
 
 ####################
 

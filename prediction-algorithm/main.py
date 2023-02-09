@@ -345,7 +345,7 @@ clean_data.drop(['DExt'], axis = 1, inplace = True )
 #print(clean_data['DVector'])
 
 pd.set_option('display.max_columns', None)
-clean_data.head(10)
+#clean_data.head(10)
 
 
 pca = PCA(n_components = 5)
@@ -370,7 +370,7 @@ all_data.head()
 X = all_data.drop(['DName', 'DAlphaChar', 'DWords'], axis = 1)
 
 pd.set_option('display.max_columns', None)
-X.head(10)
+#X.head(10)
 ##########################
 # For test set we cant drop any columns  
 
@@ -391,7 +391,7 @@ filtered_X.var()
 
 filtered_X = X;
 pd.set_option('display.max_columns', None)
-filtered_X.head(10)
+#filtered_X.head(10)
 
 '''
 scaler = MMS(feature_range=(0, 1))
@@ -401,7 +401,7 @@ final_X  = filtered_X [Col_Features]
 y        = filtered_X [Col_Output]
 ##############################
 
-final_X.head()
+#final_X.head()
 
 """#Load model"""
 
@@ -446,7 +446,7 @@ def categorize_prediction_level(actual, predicted):
 
 np.unique(model_predictions, return_counts=True)
 error_level_df = categorize_prediction_level(y, model_predictions)
-error_level_df.head()
+#error_level_df.head()
 
 
 #Counting errored values

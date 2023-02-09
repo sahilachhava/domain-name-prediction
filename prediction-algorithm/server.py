@@ -30,10 +30,17 @@ def upload_file():
 def upload_textInput():
     try:
         f = request.get_json()
+        domains = f['domains']
+        dataForFile = "Domain,category\n"
+        for x in domains:
+            dataForFile += x + ",0\n"
+        file = open("testDomains.csv", "w")
+        file.write(dataForFile)
+        file.close()
         # f.save(f.filename)
         # data = os.popen('python3 main.py ' + f.filename).read()
-        # os.remove(f.filename)
-        return f['domains']
+        # os.remove("testDomains.txt")
+        return dataForFile
     except Exception as e:
         return {
             'success': False,

@@ -1,1 +1,11 @@
 INFO:waitress:Serving on http://0.0.0.0:8080
+[
+    'google.com',
+    'facebook.com'
+]
+
+
+
+Domain,category
+google.com,0
+facebook.com,0

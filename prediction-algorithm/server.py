@@ -33,7 +33,7 @@ def upload_textInput():
         # f.save(f.filename)
         # data = os.popen('python3 main.py ' + f.filename).read()
         # os.remove(f.filename)
-        return f
+        return f.domains
     except Exception as e:
         return {
             'success': False,

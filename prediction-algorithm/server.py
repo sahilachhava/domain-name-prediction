@@ -31,16 +31,18 @@ def upload_textInput():
     try:
         f = request.get_json()
         domains = f['domains']
+
         dataForFile = "Domain,category\n"
         for x in domains:
             dataForFile += x + ",0\n"
+
         file = open("testDomains.csv", "w")
         file.write(dataForFile)
         file.close()
-        # f.save(f.filename)
-        # data = os.popen('python3 main.py ' + f.filename).read()
-        # os.remove("testDomains.txt")
-        return dataForFile
+        
+        data = os.popen('python3 main.py testDomains.csv').read()
+        os.remove("testDomains.txt")
+        return data
     except Exception as e:
         return {
             'success': False,

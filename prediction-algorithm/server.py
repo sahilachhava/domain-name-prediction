@@ -29,11 +29,11 @@ def upload_file():
 @cross_origin()
 def upload_textInput():
     try:
-        f = request.get_data()
+        f = request.get_json()
         # f.save(f.filename)
         # data = os.popen('python3 main.py ' + f.filename).read()
         # os.remove(f.filename)
-        return f.domains
+        return f['domains']
     except Exception as e:
         return {
             'success': False,

@@ -39,9 +39,9 @@ def upload_textInput():
         file = open("testDomains.csv", "w")
         file.write(dataForFile)
         file.close()
-        
+
         data = os.popen('python3 main.py testDomains.csv').read()
-        os.remove("testDomains.txt")
+        os.remove("testDomains.csv")
         return data
     except Exception as e:
         return {

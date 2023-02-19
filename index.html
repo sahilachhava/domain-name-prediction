@@ -206,6 +206,7 @@ Note: Enter each domain in new line without comma (,)"
 
             $("#csv").change(function(e) {
                 $("#details").val("Data File Selected, Please click upload now...")
+                $("#domains").val("");
                 if($("#submitBtn").attr('disabled')){
                     $("#submitBtn").removeAttr('disabled')
                     $("#submitBtn").css('background', 'linear-gradient(90deg, rgb(73, 146, 255) 0%, rgb(43, 197, 231) 100%)')

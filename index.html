@@ -162,14 +162,23 @@ Note: Enter each domain in new line without comma (,)"
                             processData: false,
                             success: async function(response){
                                 $("#csv").val('');
-                                let predData = response?.split("OUTPUT")[1]
-                                predData = predData?.replace("\n", "")?.replace(/\\/g, "")
-                                predData = JSON.parse(predData)
-                                showData(predData)
+                                if(response?.success == "false"){
+                                    alert("ERROR: " + response?.error)
+                                    $("#loadingAnimation").css('display', 'none');
+                                    $("#submitBtn").removeAttr('disabled')
+                                    $("#submitBtn").css('background', 'linear-gradient(90deg, rgb(73, 146, 255) 0%, rgb(43, 197, 231) 100%)')
+                                }else{
+                                    let predData = response?.split("OUTPUT")[1]
+                                    predData = predData?.replace("\n", "")?.replace(/\\/g, "")
+                                    predData = JSON.parse(predData)
+                                    showData(predData)
+                                }
                             },
                             error: function (result, status) {
                                 console.log(result.statusText)
                                 $("#loadingAnimation").css('display', 'none');
+                                $("#submitBtn").removeAttr('disabled')
+                                $("#submitBtn").css('background', 'linear-gradient(90deg, rgb(73, 146, 255) 0%, rgb(43, 197, 231) 100%)')
                             }
                         });
                     }else{
@@ -180,24 +189,35 @@ Note: Enter each domain in new line without comma (,)"
                         console.log("File Processing Request Sent!")
 
                         enteredDomains = enteredDomains?.split("\n")
-
+                        
                         $.ajax({
                             url: 'http://45.85.249.156:8080/uploadTextInput',
                             type: 'POST',
-                            data: {"domains": enteredDomains},
+                            data: JSON.stringify({"domains": enteredDomains}),
                             crossDomain: true,
-                            contentType:false,
+                            contentType: "application/json",
                             processData: false,
                             success: async function(response){
                                 $("#csv").val('');
-                                let predData = response?.split("OUTPUT")[1]
-                                predData = predData?.replace("\n", "")?.replace(/\\/g, "")
-                                predData = JSON.parse(predData)
-                                showData(predData)
+                                if(response?.success == "false"){
+                                    console.log(response)
+                                    alert("ERROR: " + response?.error)
+                                    $("#loadingAnimation").css('display', 'none');
+                                    $("#submitBtn").removeAttr('disabled')
+                                    $("#submitBtn").css('background', 'linear-gradient(90deg, rgb(73, 146, 255) 0%, rgb(43, 197, 231) 100%)')
+                                }else{
+                                    console.log(response)
+                                    let predData = response?.split("OUTPUT")[1]
+                                    predData = predData?.replace("\n", "")?.replace(/\\/g, "")
+                                    predData = JSON.parse(predData)
+                                    showData(predData)
+                                }
                             },
                             error: function (result, status) {
                                 console.log(result.statusText)
                                 $("#loadingAnimation").css('display', 'none');
+                                $("#submitBtn").removeAttr('disabled')
+                                $("#submitBtn").css('background', 'linear-gradient(90deg, rgb(73, 146, 255) 0%, rgb(43, 197, 231) 100%)')
                             }
                         });
                     }
@@ -220,8 +240,13 @@ Note: Enter each domain in new line without comma (,)"
         function showData(data){
             $(document).ready(function() {
                 if(data?.error != null){
+                    console.log(data)
                     alert("ERROR: ", data?.error)
+                    $("#csv").val('');
+                    $("#domains").val("");
                     $("#loadingAnimation").css('display', 'none');
+                    $("#submitBtn").removeAttr('disabled')
+                    $("#submitBtn").css('background', 'linear-gradient(90deg, rgb(73, 146, 255) 0%, rgb(43, 197, 231) 100%)')
                 }else{
                     //Accuracy Details
                     $("#accuracyData").text((Math.round(parseFloat(parseFloat(data?.accuracy) * 100) * 100) / 100)?.toFixed(2)?.toString() + " %");

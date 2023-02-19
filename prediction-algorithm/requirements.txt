@@ -5,6 +5,9 @@ langid
 wordninja
 blosc
 # pickle
+tld
+embeddings
+git+https://github.com/vzhong/embeddings.git
 category_encoders == 2.0.0
 transformers
 tensorflow-addons

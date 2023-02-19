@@ -169,6 +169,7 @@ Note: Enter each domain in new line without comma (,)"
                             },
                             error: function (result, status) {
                                 console.log(result.statusText)
+                                $("#loadingAnimation").css('display', 'none');
                             }
                         });
                     }else{
@@ -185,7 +186,7 @@ Note: Enter each domain in new line without comma (,)"
                             type: 'POST',
                             data: {"domains": enteredDomains},
                             crossDomain: true,
-                            contentType: false,
+                            contentType:false,
                             processData: false,
                             success: async function(response){
                                 $("#csv").val('');
@@ -196,6 +197,7 @@ Note: Enter each domain in new line without comma (,)"
                             },
                             error: function (result, status) {
                                 console.log(result.statusText)
+                                $("#loadingAnimation").css('display', 'none');
                             }
                         });
                     }
@@ -219,6 +221,7 @@ Note: Enter each domain in new line without comma (,)"
             $(document).ready(function() {
                 if(data?.error != null){
                     alert("ERROR: ", data?.error)
+                    $("#loadingAnimation").css('display', 'none');
                 }else{
                     //Accuracy Details
                     $("#accuracyData").text((Math.round(parseFloat(parseFloat(data?.accuracy) * 100) * 100) / 100)?.toFixed(2)?.toString() + " %");

@@ -50,7 +50,7 @@ Note: Enter each domain in new line without comma (,)"
         <div class="loader" id="loadingAnimation" style="display: none;"></div>
 
         <div class="container-fluid" id="resultBody" style="display: none;">
-            <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
+            <!-- <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="myTable" border="1">
                         <h3>Reports</h3>
@@ -60,6 +60,22 @@ Note: Enter each domain in new line without comma (,)"
                             </tr>
                         </thead>
                         <tbody id="mainTableBody">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div> -->
+
+            <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="Table" border="1">
+                        <h3>All Predictions</h3>
+                        <thead>
+                            <tr id="predTableHeader">
+                                
+                            </tr>
+                        </thead>
+                        <tbody id="predTableBody">
                             
                         </tbody>
                     </table>
@@ -87,23 +103,7 @@ Note: Enter each domain in new line without comma (,)"
                 </div>
             </div> 
 
-            <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="Table" border="1">
-                        <h3>All Predictions</h3>
-                        <thead>
-                            <tr id="predTableHeader">
-                                
-                            </tr>
-                        </thead>
-                        <tbody id="predTableBody">
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
+            <!-- <div class="card m-3 p-4 border-0  shadow-lg" style="border-radius: 1rem !important; width: 80%; float: left;">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="matrix" border="1">
                         <h3>Confusion Matrix</h3>
@@ -117,7 +117,7 @@ Note: Enter each domain in new line without comma (,)"
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </body>
@@ -253,26 +253,26 @@ Note: Enter each domain in new line without comma (,)"
                     $("#accuracyData").text((Math.round(parseFloat(parseFloat(data?.accuracy) * 100) * 100) / 100)?.toFixed(2)?.toString() + " %");
 
                     // Reports Table
-                    let headers = Object.keys(data?.reports)
-                    $("#mainTableHeader").append('<th> - </th>')
-                    for (let index = 0; index < headers.length; index++) {
-                        const header = headers[index];
-                        $("#mainTableHeader").append('<th>' + header + '</th>')
-                    }
+                    // let headers = Object.keys(data?.reports)
+                    // $("#mainTableHeader").append('<th> - </th>')
+                    // for (let index = 0; index < headers.length; index++) {
+                    //     const header = headers[index];
+                    //     $("#mainTableHeader").append('<th>' + header + '</th>')
+                    // }
 
-                    const values = Object.values(data?.reports)
-                    const subHeaders = Object.keys(values[0])
-                    let bodyData = ''
-                    for (let index = 0; index < subHeaders.length; index++) {
-                        const subHeader = subHeaders[index];
-                        bodyData += '<tr>'
-                        bodyData += '<td>' + subHeader + '</td>'
-                        for (let subIndex = 0; subIndex < values.length; subIndex++) {
-                            const valueObj = values[subIndex];
-                            bodyData += '<td>' + valueObj[subHeader] + '</td>'
-                        }
-                    }
-                    $("#mainTableBody").append(bodyData);
+                    // const values = Object.values(data?.reports)
+                    // const subHeaders = Object.keys(values[0])
+                    // let bodyData = ''
+                    // for (let index = 0; index < subHeaders.length; index++) {
+                    //     const subHeader = subHeaders[index];
+                    //     bodyData += '<tr>'
+                    //     bodyData += '<td>' + subHeader + '</td>'
+                    //     for (let subIndex = 0; subIndex < values.length; subIndex++) {
+                    //         const valueObj = values[subIndex];
+                    //         bodyData += '<td>' + valueObj[subHeader] + '</td>'
+                    //     }
+                    // }
+                    // $("#mainTableBody").append(bodyData);
 
                     // Prediction Table
                     let predHeaders = Object.keys(data?.allPredictions)
@@ -297,26 +297,26 @@ Note: Enter each domain in new line without comma (,)"
                     $("#predTableBody").append(predBodyData);
 
                     // Confusion Matrix
-                    let matrixHeaders = Object.keys(data?.confusionMatrix)
-                    $("#matrixHeader").append('<th> - </th>')
-                    for (let index = 0; index < matrixHeaders.length; index++) {
-                        const header = matrixHeaders[index];
-                        $("#matrixHeader").append('<th>' + header + '</th>')
-                    }
+                    // let matrixHeaders = Object.keys(data?.confusionMatrix)
+                    // $("#matrixHeader").append('<th> - </th>')
+                    // for (let index = 0; index < matrixHeaders.length; index++) {
+                    //     const header = matrixHeaders[index];
+                    //     $("#matrixHeader").append('<th>' + header + '</th>')
+                    // }
 
-                    const matrixValues = Object.values(data?.confusionMatrix)
-                    const matrixSubHeaders = Object.keys(matrixValues[0])
-                    let matrixBodyData = ''
-                    for (let index = 0; index < matrixSubHeaders.length; index++) {
-                        const subHeader = matrixSubHeaders[index];
-                        matrixBodyData += '<tr>'
-                        matrixBodyData += '<td>' + subHeader + '</td>'
-                        for (let subIndex = 0; subIndex < matrixValues.length; subIndex++) {
-                            const valueObj = matrixValues[subIndex];
-                            matrixBodyData += '<td>' + valueObj[subHeader] + '</td>'
-                        }
-                    }
-                    $("#matrixBody").append(matrixBodyData);
+                    // const matrixValues = Object.values(data?.confusionMatrix)
+                    // const matrixSubHeaders = Object.keys(matrixValues[0])
+                    // let matrixBodyData = ''
+                    // for (let index = 0; index < matrixSubHeaders.length; index++) {
+                    //     const subHeader = matrixSubHeaders[index];
+                    //     matrixBodyData += '<tr>'
+                    //     matrixBodyData += '<td>' + subHeader + '</td>'
+                    //     for (let subIndex = 0; subIndex < matrixValues.length; subIndex++) {
+                    //         const valueObj = matrixValues[subIndex];
+                    //         matrixBodyData += '<td>' + valueObj[subHeader] + '</td>'
+                    //     }
+                    // }
+                    // $("#matrixBody").append(matrixBodyData);
                 }
 
                 $("#loadingAnimation").css('display', 'none');
